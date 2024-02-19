@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+ medilaboPatient:
+  image: medilabo:0.0.1
+  ports:
+  - "8081:8081"
+  environment:
+   SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/demo?serverTimezone=UTC
+   SPRING_DATASOURCE_USERNAME: root
+   SPRING_DATASOURCE_PASSWORD: rootroot
+  depends_on:
+   - db
+   
+ db:
+  image: mysql:8.0.27
+  environment:
+   DATABASE_HOST: docker-mysql
+   DATABASE_PORT: 3306
+   MYSQL_ROOT_PASSWORD: rootroot
+   MYSQL_DATABASE: demo
