@@ -30,7 +30,7 @@ public class Patient {
 	private String nom;
 	// @NotBlank(message = "date de naissance is mandatory")
 	private Date date_de_naissance;
-	@NotBlank(message = "genre is mandatory")
+	@NotBlank(message = "gender is mandatory")
 	private String genre;
 	private String adresse_postale;
 	private String numero_telephone;
