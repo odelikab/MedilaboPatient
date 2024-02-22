@@ -22,10 +22,10 @@ public class PatientService {
 		return patientRepository.findAll();
 	}
 
-	public Optional<Patient> findById(Integer id) throws NotFoundException {
+	public Patient findById(Integer id) throws NotFoundException {
 		Optional<Patient> patientOpt = patientRepository.findById(id);
 		if (patientOpt.isPresent()) {
-			return patientOpt;
+			return patientOpt.get();
 		} else {
 			throw new NotFoundException();
 		}
@@ -35,16 +35,20 @@ public class PatientService {
 		return patientRepository.save(patient);
 	}
 
-	public Optional<Patient> findByNom(String nom) {
-		return patientRepository.findByNom(nom);
+	public Patient findByNom(String nom) throws NotFoundException {
+		Optional<Patient> patientOpt = patientRepository.findByNom(nom);
+		if (patientOpt.isPresent()) {
+			return patientOpt.get();
+		} else {
+			throw new NotFoundException();
+		}
 	}
 
-	public int getAge(String nom) {
-		Optional<Patient> dateBirthOpt = findByNom(nom);
-		Date dateBirth = dateBirthOpt.get().getDate_de_naissance();
+	public int getAge(String nom) throws NotFoundException {
+		Patient patient = findByNom(nom);
+		Date dateBirth = patient.getDate_de_naissance();
 		LocalDate dateOfBirth = LocalDate.parse(dateBirth.toString());
-		LocalDate now = LocalDate.now();
-		int age = dateOfBirth.until(now).getYears();
+		int age = dateOfBirth.until(LocalDate.now()).getYears();
 		return age;
 	}
 }

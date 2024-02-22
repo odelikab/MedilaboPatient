@@ -1,7 +1,6 @@
 package com.medilabo.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,32 +35,29 @@ public class PatientController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Patient> getPatientInfo(@PathVariable("id") Integer id) throws NotFoundException {
+	public Patient getPatientInfo(@PathVariable("id") Integer id) throws NotFoundException {
 		return patientService.findById(id);
 	}
 
 	@GetMapping("/nom/{nom}")
-	public Optional<Patient> getPatientbyName(@PathVariable("nom") String nom) {
+	public Patient getPatientbyName(@PathVariable("nom") String nom) throws NotFoundException {
 		return patientService.findByNom(nom);
 	}
 
 	@GetMapping("/age/{nom}")
-	public int getAge(@PathVariable("nom") String nom) {
+	public int getAge(@PathVariable("nom") String nom) throws NotFoundException {
 		return patientService.getAge(nom);
 	}
 
 	@PutMapping("/patient/{id}")
 	public Patient updatePatient(@PathVariable("id") Integer id, @Valid Patient patient, BindingResult result)
 			throws Exception {
-		Optional<Patient> patientFound = patientService.findById(id);
+		Patient patientFound = patientService.findById(id);
 
-		if (patientFound.isPresent()) {
-			patientFound.get().setAdresse_postale(patient.getAdresse_postale());
-			patientFound.get().setGenre(patient.getGenre());
-			patientFound.get().setNumero_telephone(patient.getNumero_telephone());
-			return patientService.savePatient(patientFound.get());
-		} else
-			throw new Exception("patient not found");
+		patientFound.setAdresse_postale(patient.getAdresse_postale());
+		patientFound.setGenre(patient.getGenre());
+		patientFound.setNumero_telephone(patient.getNumero_telephone());
+		return patientService.savePatient(patientFound);
 
 	}
 

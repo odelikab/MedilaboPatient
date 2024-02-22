@@ -3,6 +3,8 @@ package com.medilabo.domain;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,9 +31,11 @@ public class Patient {
 	@NotBlank(message = "nom is mandatory")
 	private String nom;
 	// @NotBlank(message = "date de naissance is mandatory")
+//	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date date_de_naissance;
 	@NotBlank(message = "gender is mandatory")
-	private String genre;
+	@Enumerated(EnumType.STRING)
+	private PatientGender genre;
 	private String adresse_postale;
 	private String numero_telephone;
 
