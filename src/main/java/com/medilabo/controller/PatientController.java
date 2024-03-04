@@ -58,7 +58,6 @@ public class PatientController {
 		patientFound.setGenre(patient.getGenre());
 		patientFound.setNumero_telephone(patient.getNumero_telephone());
 		return patientService.savePatient(patientFound);
-
 	}
 
 	@PostMapping("/patient")

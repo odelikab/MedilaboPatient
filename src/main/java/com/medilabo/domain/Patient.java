@@ -25,7 +25,7 @@ public class Patient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private int id;
 	@NotBlank(message = "prenom is mandatory")
 	private String prenom;
 	@NotBlank(message = "nom is mandatory")
